@@ -90,8 +90,8 @@ def print_review_summary(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Map CDCR ethnicity labels to Census-compatible groups.")
-    parser.add_argument("--input", required=True, help="Input CSV/XLSX file.")
-    parser.add_argument("--output", help="Output CSV/XLSX file. Required unless --dry-run is used.")
+    parser.add_argument("--input", required=True, help="Input CSV file.")
+    parser.add_argument("--output", help="Output CSV file. Required unless --dry-run is used.")
     parser.add_argument("--source-col", default="ethnicity")
     parser.add_argument("--mapping", default=str(DEFAULT_MAPPING_PATH))
     parser.add_argument("--group-col", default=DEFAULT_GROUP_COL)
@@ -120,10 +120,10 @@ def main() -> int:
     if not args.dry_run and not args.output:
         parser.error("--output is required unless --dry-run is used.")
 
-    if input_path.suffix.lower() in {".xlsx", ".xls"}:
-        df = pd.read_excel(input_path)
-    else:
-        df = pd.read_csv(input_path)
+    if input_path.suffix.lower() != ".csv":
+        raise ValueError("Only CSV input is supported.")
+
+    df = pd.read_csv(input_path)
 
     out = apply_mapping(
         df=df,
@@ -144,11 +144,11 @@ def main() -> int:
         return 0
 
     output_path = Path(args.output)
+    if output_path.suffix.lower() != ".csv":
+        raise ValueError("Only CSV output is supported.")
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    if output_path.suffix.lower() in {".xlsx", ".xls"}:
-        out.to_excel(output_path, index=False)
-    else:
-        out.to_csv(output_path, index=False)
+    out.to_csv(output_path, index=False)
 
     print(f"Wrote {len(out):,} rows to {output_path}")
     return 0

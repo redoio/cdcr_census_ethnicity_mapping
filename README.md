@@ -2,6 +2,8 @@
 
 This repository contains the first implementation step for adding a Census-compatible race/ethnicity grouping to CDCR demographics data.
 
+The workflow is CSV-only to match the published `offenses_data` files.
+
 The workflow keeps the original CDCR `ethnicity` column and appends one publication column:
 
 ```text
@@ -18,11 +20,12 @@ mappings/
 docs/
   CENSUS_TARGET_CATEGORIES.md
   REPO_INTEGRATION_PLAN.md
+  RELEASE_WORKFLOW.md
 scripts/
   map_cdcr_ethnicity_to_census.py
 tests/
   test_ethnicity_mapping.py
-WORKING_RULES.md
+DEVELOPMENT_RULES.md
 ```
 
 ## Intended Data Flow
@@ -37,7 +40,8 @@ Recommended flow:
 4. Stage outputs for both `12_2023` and `04_2025`.
 5. Update `offenses_data` only after review and approval.
 
-Do not run this script directly against `offenses_data` release files in place.
+Do not run this script directly against `offenses_data` release files in place. Use
+staged output paths as shown in `docs/RELEASE_WORKFLOW.md`.
 
 ## Usage
 
@@ -85,4 +89,3 @@ For each new release:
 3. If new labels appear, update `mappings/cdcr_census_ethnicity_mapping.json`.
 4. Re-run validation before staging output.
 5. Keep the original ethnicity values unchanged.
-

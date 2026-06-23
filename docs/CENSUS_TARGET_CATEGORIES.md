@@ -16,6 +16,9 @@ The initial Census source is ACS 5-Year table `B03002`, Hispanic or Latino Origi
 | `other` | Other or unknown CDCR category | Project-defined fallback; not a direct Census category |
 | `review_needed` | Unmapped value requiring review | Processing safeguard; not an analytical category |
 
+`nh_other` and `nh_two_or_more` are included here for Census completeness. They are
+not currently emitted by the approved CDCR mapping dictionary.
+
 ## Interpretation Notes
 
 - Census treats Hispanic or Latino as an ethnicity that can coexist with any race.
@@ -23,4 +26,3 @@ The initial Census source is ACS 5-Year table `B03002`, Hispanic or Latino Origi
 - CDCR source labels do not separately encode race and Hispanic origin. Mapping broad CDCR labels such as `White` and `Black` to non-Hispanic Census groups assumes Hispanic CDCR records are represented by separate Hispanic or national-origin labels.
 - `other` must not be compared directly with `B03002_008E`. A denominator policy for this project-defined fallback category still needs to be decided.
 - Keep the original `ethnicity` column alongside the mapped column for transparency and auditability.
-
