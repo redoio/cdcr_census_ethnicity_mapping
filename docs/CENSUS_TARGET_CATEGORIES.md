@@ -1,7 +1,6 @@
-# Census-Compatible Target Categories
+# CDCR to Census Race/Ethnicity Mapping Categories
 
-This document explains the mapped categories added to CDCR demographics data.
-The initial Census source is ACS 5-Year table `B03002`, Hispanic or Latino Origin by Race.
+This document describes the Census-compatible race and ethnicity categories used to map CDCR ethnicity labels. These categories are intended to support future comparisons between CDCR populations and county-level demographic data from the U.S. Census.
 
 | Code | End-user label | Census alignment |
 |---|---|---|
@@ -13,16 +12,20 @@ The initial Census source is ACS 5-Year table `B03002`, Hispanic or Latino Origi
 | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander | `B03002_007E` |
 | `nh_other` | Non-Hispanic some other race | `B03002_008E` |
 | `nh_two_or_more` | Non-Hispanic two or more races | `B03002_009E` and its detailed subcategories |
-| `other` | Other or unknown CDCR category | Project-defined fallback; not a direct Census category |
+| `other` | Other or unknown CDCR category | Project-defined category; not a direct Census category |
 | `review_needed` | Unmapped value requiring review | Processing safeguard; not an analytical category |
 
 `nh_other` and `nh_two_or_more` are included here for Census completeness. They are
-not currently emitted by the approved CDCR mapping dictionary.
+not currently produced by the approved CDCR mapping dictionary.
 
 ## Interpretation Notes
 
 - Census treats Hispanic or Latino as an ethnicity that can coexist with any race.
 - The mapping uses mutually exclusive broad groups suitable for denominators from `B03002`.
-- CDCR source labels do not separately encode race and Hispanic origin. Mapping broad CDCR labels such as `White` and `Black` to non-Hispanic Census groups assumes Hispanic CDCR records are represented by separate Hispanic or national-origin labels.
+- CDCR source labels do not separately encode race and Hispanic origin. Mapping broad CDCR labels such as `White` and `Black` to non-Hispanic Census groups assumes that Hispanic individuals are represented separately by CDCR Hispanic or national-origin labels.
 - `other` must not be compared directly with `B03002_008E`. A denominator policy for this project-defined fallback category still needs to be decided.
 - Keep the original `ethnicity` column alongside the mapped column for transparency and auditability.
+
+## Limitations
+
+This mapping represents the current best alignment between CDCR ethnicity labels and available Census race/ethnicity categories. Some source labels do not have an exact Census equivalent and therefore require project-specific mapping decisions.

@@ -1,10 +1,10 @@
 # CDCR Census Ethnicity Mapping
 
-This repository contains the first implementation step for adding a Census-compatible race/ethnicity grouping to CDCR demographics data.
+This repository contains the initial implementation of a workflow for mapping CDCR ethnicity labels to Census-compatible race/ethnicity categories. The mapping will support future population-adjusted sentencing analyses using U.S. Census demographic data. This repository also contains end-user documentation describing the target Census race/ethnicity categories and the rationale behind each mapping decision.
 
 The workflow is CSV-only to match the published `offenses_data` files.
 
-The workflow keeps the original CDCR `ethnicity` column and appends one publication column:
+The workflow preserves the original CDCR `ethnicity` column and appends a single mapped column:
 
 ```text
 census race ethnicity group
@@ -30,17 +30,17 @@ DEVELOPMENT_RULES.md
 
 ## Intended Data Flow
 
-This repo is a small review package. The eventual production home for the mapping logic should be the `preprocess` repository.
+This repo is a small review package. The production implementation of this workflow is intended to reside in the `preprocess` repository.
 
-Recommended flow:
+Proposed Integration Workflow:
 
 1. Add the approved mapping dictionary and category documentation to `preprocess`.
 2. Add the mapped column during demographics preprocessing.
-3. Preserve the new column through `hash_object`.
+3. Preserve the mapped column throughout the `hash_object` workflow.
 4. Stage outputs for both `12_2023` and `04_2025`.
 5. Update `offenses_data` only after review and approval.
 
-Do not run this script directly against `offenses_data` release files in place. Use
+**Important:** Do not run this script directly against `offenses_data` release files in place. Use
 staged output paths as shown in `docs/RELEASE_WORKFLOW.md`.
 
 ## Usage
@@ -72,7 +72,7 @@ python scripts\map_cdcr_ethnicity_to_census.py `
 
 ## Approved Mapping Notes
 
-Client-confirmed decisions:
+Confirmed mapping decisions:
 
 - `Indian` maps to `nh_asian`.
 - `Jamaican` maps to `nh_black`.
@@ -87,5 +87,5 @@ For each new release:
 1. Run a dry run against the new demographics file.
 2. Review the unique source ethnicity labels and mapped group counts.
 3. If new labels appear, update `mappings/cdcr_census_ethnicity_mapping.json`.
-4. Re-run validation before staging output.
+4. Re-run the mapping validation before generating staged outputs.
 5. Keep the original ethnicity values unchanged.
