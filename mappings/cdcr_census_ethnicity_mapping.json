@@ -1,0 +1,187 @@
+{
+  "American Indian": {
+    "census_group": "nh_aian",
+    "status": "mapped",
+    "note": "Maps to ACS B03002 non-Hispanic American Indian and Alaska Native alone."
+  },
+  "Bangladeshi": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Black": {
+    "census_group": "nh_black",
+    "status": "mapped",
+    "note": "Maps to ACS B03002 non-Hispanic Black or African American alone. Assumes CDCR Black is non-Hispanic because Hispanic/Latino categories are separate."
+  },
+  "Cambodian": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Chinese": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Columbian": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Assumed Colombian/Latino origin despite source spelling."
+  },
+  "Cuban": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Filipino": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Fijian": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Guamanian": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Guamanian or Chamorro": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Guatemalan": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Hawaiian": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Hispanic": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to ACS B03002 Hispanic or Latino."
+  },
+  "Hmong": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Indian": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone, confirmed by the client."
+  },
+  "Jamaican": {
+    "census_group": "nh_black",
+    "status": "mapped",
+    "note": "Maps to Black, confirmed by the client."
+  },
+  "Japanese": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Korean": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Laotian": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Mexican": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Nicaraguan": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Other": {
+    "census_group": "other",
+    "status": "mapped",
+    "note": "Maps to the project's generic Other category, confirmed by the client. This is not identical to the Census 'Some other race alone' category."
+  },
+  "Other Asian": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Other Asian Not Listed": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Other Hispanic Not Listed": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Other Pacific Islander Not Listed": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Pakistani": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Pacific Islander": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Puerto Rican": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Salvadorian": {
+    "census_group": "hispanic_latino",
+    "status": "mapped",
+    "note": "Maps to Hispanic or Latino."
+  },
+  "Samoan": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Thai": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "Tongan": {
+    "census_group": "nh_nhpi",
+    "status": "mapped",
+    "note": "Maps to Native Hawaiian and Other Pacific Islander alone."
+  },
+  "Unknown": {
+    "census_group": "other",
+    "status": "mapped",
+    "note": "Maps to the project's generic Other category, confirmed by the client."
+  },
+  "Vietnamese": {
+    "census_group": "nh_asian",
+    "status": "mapped",
+    "note": "Maps to Asian alone."
+  },
+  "White": {
+    "census_group": "nh_white",
+    "status": "mapped",
+    "note": "Maps to ACS B03002 non-Hispanic White alone. Assumes CDCR White is non-Hispanic because Hispanic/Latino categories are separate."
+  }
+}

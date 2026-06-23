@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Real or generated data
+data/
+outputs/
+staging/
+*.xlsx
+*.xls
+*_with_census_ethnicity.csv
+*_audit.csv
+
+# Secrets
+.env
+*.key
+
