@@ -19,7 +19,5 @@ staging/
 *_with_census_ethnicity.csv
 *_audit.csv
 
-# Secrets
-.env
-*.key
+
 
