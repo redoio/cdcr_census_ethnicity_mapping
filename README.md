@@ -1,51 +1,88 @@
 # CDCR Census Ethnicity Mapping
 
-This repository contains the initial implementation of a workflow for mapping CDCR ethnicity labels to Census-compatible race/ethnicity categories. The mapping will support future population-adjusted sentencing analyses using U.S. Census demographic data. This repository also contains end-user documentation describing the target Census race/ethnicity categories and the rationale behind each mapping decision.
+This repository contains a workflow for mapping CDCR ethnicity labels to Census-compatible race/ethnicity groups. The mapped groups are intended for future population-based sentencing analyses using U.S. Census demographic data.
 
-The workflow is CSV-only to match the published `offenses_data` files.
+The mapping dictionary is stored in `mappings/cdcr_census_ethnicity_mapping.json` 
 
-The workflow preserves the original CDCR `ethnicity` column and appends a single mapped column:
+The script reads a CSV, preserves the original `ethnicity` column and adds:
 
 ```text
 census race ethnicity group
 ```
 
-The mapping currently covers all 37 ethnicity labels observed across the `12_2023` and `04_2025` `offenses_data` releases. It also includes a guardrail for future datasets: any previously unseen ethnicity label is reported as `review_needed` and blocks output unless explicitly allowed for staging review.
+The current mapping covers all ethnicity labels observed in the 2023 and 2025 CDCR demographics datasets.
 
-## Repository Contents
+## Safety
+Generate mapped files in a staging directory for review. Do not overwrite files in `offenses_data` directly.
 
-```text
-mappings/
-  cdcr_census_ethnicity_mapping.json
-docs/
-  CENSUS_TARGET_CATEGORIES.md
-  REPO_INTEGRATION_PLAN.md
-  RELEASE_WORKFLOW.md
-scripts/
-  map_cdcr_ethnicity_to_census.py
-tests/
-  test_ethnicity_mapping.py
-DEVELOPMENT_RULES.md
-```
+## Mapping Table
 
-## Intended Data Flow
+The prefix `nh` stands for **Non-Hispanic**.
 
-This repo is a small review package. The production implementation of this workflow is intended to reside in the `preprocess` repository.
+| CDCR ethnicity label | Stored value | Meaning |
+|---|---|---|
+| American Indian | `nh_aian` | Non-Hispanic American Indian or Alaska Native |
+| Bangladeshi | `nh_asian` | Non-Hispanic Asian |
+| Black | `nh_black` | Non-Hispanic Black |
+| Cambodian | `nh_asian` | Non-Hispanic Asian |
+| Chinese | `nh_asian` | Non-Hispanic Asian |
+| Columbian | `hispanic_latino` | Hispanic or Latino |
+| Cuban | `hispanic_latino` | Hispanic or Latino |
+| Filipino | `nh_asian` | Non-Hispanic Asian |
+| Fijian | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Guamanian | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Guamanian or Chamorro | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Guatemalan | `hispanic_latino` | Hispanic or Latino |
+| Hawaiian | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Hispanic | `hispanic_latino` | Hispanic or Latino |
+| Hmong | `nh_asian` | Non-Hispanic Asian |
+| Indian | `nh_asian` | Non-Hispanic Asian |
+| Jamaican | `nh_black` | Non-Hispanic Black |
+| Japanese | `nh_asian` | Non-Hispanic Asian |
+| Korean | `nh_asian` | Non-Hispanic Asian |
+| Laotian | `nh_asian` | Non-Hispanic Asian |
+| Mexican | `hispanic_latino` | Hispanic or Latino |
+| Nicaraguan | `hispanic_latino` | Hispanic or Latino |
+| Other | `other` | Project-defined other category |
+| Other Asian | `nh_asian` | Non-Hispanic Asian |
+| Other Asian Not Listed | `nh_asian` | Non-Hispanic Asian |
+| Other Hispanic Not Listed | `hispanic_latino` | Hispanic or Latino |
+| Other Pacific Islander Not Listed | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Pakistani | `nh_asian` | Non-Hispanic Asian |
+| Pacific Islander | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Puerto Rican | `hispanic_latino` | Hispanic or Latino |
+| Salvadorian | `hispanic_latino` | Hispanic or Latino |
+| Samoan | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Thai | `nh_asian` | Non-Hispanic Asian |
+| Tongan | `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| Unknown | `other` | Project-defined other category |
+| Vietnamese | `nh_asian` | Non-Hispanic Asian |
+| White | `nh_white` | Non-Hispanic White |
 
-Proposed Integration Workflow:
+## Census-Compatible Groups
 
-1. Add the approved mapping dictionary and category documentation to `preprocess`.
-2. Add the mapped column during demographics preprocessing.
-3. Preserve the mapped column throughout the `hash_object` workflow.
-4. Stage outputs for both `12_2023` and `04_2025`.
-5. Update `offenses_data` only after review and approval.
+The mapped values below are the values written to the `census race ethnicity group` column.
 
-**Important:** Do not run this script directly against `offenses_data` release files in place. Use
-staged output paths as shown in `docs/RELEASE_WORKFLOW.md`.
+| Stored value | Meaning |
+|---|---|
+| `hispanic_latino` | Hispanic or Latino |
+| `nh_white` | Non-Hispanic White (`nh` = Non-Hispanic) |
+| `nh_black` | Non-Hispanic Black |
+| `nh_aian` | Non-Hispanic American Indian or Alaska Native |
+| `nh_asian` | Non-Hispanic Asian |
+| `nh_nhpi` | Non-Hispanic Native Hawaiian or Other Pacific Islander |
+| `other` | Project-defined category for `Other` and `Unknown`; not the Census "Some other race alone" category |
+| `review_needed` | Unmapped label requiring review |
 
 ## Usage
 
-Dry-run a demographics file without writing output:
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Dry-run a CSV without writing output:
 
 ```powershell
 python scripts\map_cdcr_ethnicity_to_census.py `
@@ -58,34 +95,38 @@ Write a staged output file:
 ```powershell
 python scripts\map_cdcr_ethnicity_to_census.py `
   --input path\to\demographics.csv `
-  --output path\to\staging\demographics.csv
+  --output staging\demographics.csv
 ```
 
-Include audit columns for internal review only:
+Include audit columns for review:
 
 ```powershell
 python scripts\map_cdcr_ethnicity_to_census.py `
   --input path\to\demographics.csv `
-  --output path\to\staging\demographics_audit.csv `
+  --output staging\demographics_audit.csv `
   --include-audit-columns
 ```
 
-## Approved Mapping Notes
+By default, the script stops before writing output if it finds an ethnicity label that is not in the mapping dictionary.
 
-Confirmed mapping decisions:
 
-- `Indian` maps to `nh_asian`.
-- `Jamaican` maps to `nh_black`.
-- `Other` and `Unknown` map to the project-defined `other` category.
+## Future Datasets
 
-The project-defined `other` category is not equivalent to the Census `Some other race alone` category. Downstream population-rate calculations should handle that denominator decision explicitly.
+For each new CDCR release:
 
-## Future Dataset Workflow
-
-For each new release:
-
-1. Run a dry run against the new demographics file.
-2. Review the unique source ethnicity labels and mapped group counts.
+1. Run a dry run against the new demographics CSV.
+2. Review mapped group counts and any labels reported as needing review.
 3. If new labels appear, update `mappings/cdcr_census_ethnicity_mapping.json`.
-4. Re-run the mapping validation before generating staged outputs.
-5. Keep the original ethnicity values unchanged.
+4. Re-run the dry run until there are no unmapped labels.
+5. Write output only to a staging path.
+6. Confirm row counts, existing columns and original `ethnicity` values before any release update.
+
+Use `--allow-review` only during manual review of new labels. Do not use `review_needed` as an analysis category.
+
+## Tests
+
+Run the test suite with:
+
+```powershell
+python -m unittest
+```
